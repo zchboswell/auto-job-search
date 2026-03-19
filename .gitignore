@@ -1,0 +1,27 @@
+# User-specific files (created by setup wizard)
+config.yaml
+data/jobs.json
+resources/*
+!resources/.gitkeep
+outputs/**/*
+!outputs/reports/.gitkeep
+!outputs/cover-letters/.gitkeep
+!outputs/interview-prep/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

@@ -1,6 +1,6 @@
 # Job Search Autopilot
 
-**Your AI-powered job search assistant.** Drop in your resume, tell it what you're looking for, and let it scan LinkedIn daily, score listings against your priorities, and draft cover letters for the best matches.
+**An AI-powered job search assistant.** Drop in your resume, tell it what you're looking for, and let it scan LinkedIn daily, score listings against your priorities, and draft cover letters for the top matches.
 
 Built for [Claude Cowork](https://claude.ai) and [Claude Code](https://docs.claude.com/en/docs/claude-code). No coding experience required.
 
@@ -9,13 +9,13 @@ Built for [Claude Cowork](https://claude.ai) and [Claude Code](https://docs.clau
 ## What It Does
 
 - Scans LinkedIn for new listings matching your target roles
-- Tracks every listing in a database so you never see the same one twice
+- Tracks every listing in a database so you never review the same one twice
 - Scores each listing against your personal priorities (technical fit, salary, location, career trajectory, etc.)
 - Auto-generates tailored cover letters for top-scoring matches
-- Spots trends in hiring activity over time
-- Prepares interview briefing docs when you get a callback
+- Tracks hiring trends over time
+- Generates interview briefing docs when you get a callback
 
-You configure it once, and it runs on autopilot. Every day you get a clean report of what's new and what's worth your time.
+Configure it once and it runs on autopilot. Each day you get a report of what's new and what's worth your time.
 
 ---
 
@@ -33,7 +33,7 @@ You configure it once, and it runs on autopilot. Every day you get a clean repor
 Download or clone this project to your computer:
 
 ```
-git clone https://github.com/YOUR_USERNAME/job-search-autopilot.git
+git clone https://github.com/zchboswell/job-search-autopilot.git
 ```
 
 Or just download the ZIP and unzip it somewhere convenient.
@@ -68,7 +68,7 @@ python scripts/setup.py --resume /path/to/your/resume.docx
 
 **In Claude Code:** You can run scans manually by telling Claude to follow the instructions in `skills/daily-scan/SKILL.md`, or set up a scheduled task the same way.
 
-Both approaches use the Claude in Chrome extension to browse LinkedIn on your behalf.
+Both approaches use the Claude in Chrome extension to browse LinkedIn for you.
 
 ### Step 4: Sit Back
 
@@ -88,10 +88,10 @@ Every listing gets scored across 7 dimensions, each rated 0-10:
 |-----------|------------------|----------------|
 | **Technical Match** | Does the role use your skills? | 25% |
 | **Domain Context** | Is it in your target industry? | 20% |
-| **Compensation** | Does it meet or beat your current pay? | 15% |
+| **Compensation** | Does it meet or exceed your current pay? | 15% |
 | **Company Health** | Is the company well-funded and growing? | 12% |
 | **Seniority Fit** | Does the level match your experience? | 10% |
-| **Location** | Is it near home, remote, or requires relocation? | 10% |
+| **Location** | Remote, local, or requires relocation? | 10% |
 | **Career Trajectory** | Does it advance your long-term goals? | 8% |
 
 These combine into a composite score (0-100) that determines the tier:
@@ -104,7 +104,7 @@ These combine into a composite score (0-100) that determines the tier:
 | 25-39 | **STRETCH** | Long shot, but might surprise you. |
 | <25 | **SKIP** | Not a match right now. |
 
-**You control the weights.** If location matters more to you than salary, bump up the location weight and lower compensation. If you're early career and prioritize growth, increase the trajectory weight. Edit these in `config.yaml > scoring > dimensions`.
+**You control the weights.** If location matters more than salary, increase the location weight and lower compensation. If you're early in your career and prioritize growth, increase the trajectory weight. Edit these in `config.yaml > scoring > dimensions`.
 
 ---
 
@@ -163,7 +163,7 @@ If you're using Claude Code, you'll need to connect the Chrome extension as an M
 }
 ```
 
-The Chrome extension documentation has the exact port and connection details. The extension must be running in Chrome for LinkedIn browsing to work.
+See the Chrome extension documentation for the exact port and connection details. The extension must be running in Chrome for LinkedIn browsing to work.
 
 ---
 
@@ -175,13 +175,13 @@ Tell Claude:
 
 > "I have an interview at [Company Name] for [Role Title]. Here's the JD: [paste or link]. The interviewer is [Name]."
 
-Claude will use the interview-prep skill to generate a briefing doc with company research, role analysis, comp benchmarks, and interviewer background.
+Claude will generate a briefing doc with company research, role analysis, comp benchmarks, and interviewer background.
 
 ### "Score this listing for me"
 
 > "Score this listing: [paste JD or LinkedIn URL]"
 
-Claude will evaluate it against your scoring rubric and add it to your database.
+Claude will score it against your rubric and add it to your database.
 
 ### "Generate a cover letter for this role"
 
@@ -203,7 +203,7 @@ Shows all listings you've moved beyond "new" status, with event history.
 python scripts/jobs_db.py trends
 ```
 
-Prints hiring trends, salary ranges, reposting patterns, and your observations over time.
+Prints hiring trends, salary ranges, reposting patterns, and observations over time.
 
 ---
 
@@ -217,11 +217,11 @@ For example, if you're in software engineering, the "Technical Match: 10" descri
 
 ### Evidence Bank
 
-The evidence bank (`config.yaml > evidence_bank`) maps your key achievements to themes, with keywords that match them to job descriptions. The setup wizard populates this from your resume, but you should review and refine it. Better evidence = better cover letters.
+The evidence bank (`config.yaml > evidence_bank`) maps your achievements to themes with keywords that match them to job descriptions. The setup wizard populates this from your resume, but you should review and refine it — better evidence means better cover letters.
 
 ### Cover Letter Voice
 
-Edit `skills/cover-letter/SKILL.md` to match your personal writing style. The defaults produce a concise, professional letter, but you might want something warmer, more technical, or more casual.
+Edit `skills/cover-letter/SKILL.md` to match your personal writing style. The defaults produce a concise, professional tone, but you can adjust it to be warmer, more technical, or more casual.
 
 ---
 
@@ -241,9 +241,9 @@ Recommended:
 
 **"LinkedIn isn't loading"** — Make sure you're logged into LinkedIn in Chrome and the Claude in Chrome extension is active.
 
-**"No new listings found"** — Try broadening your search queries in `config.yaml > target > search_queries`. LinkedIn's search can be finicky with exact-match quotes.
+**"No new listings found"** — Try broadening your search queries in `config.yaml > target > search_queries`. LinkedIn search can be inconsistent with exact-match quotes.
 
-**"Scores seem off"** — Run `python scripts/fit_score.py rubric` to review your scoring rubric. The anchor descriptions guide the AI's ratings; if they don't match your expectations, edit them.
+**"Scores seem off"** — Run `python scripts/fit_score.py rubric` to review your scoring rubric. The anchor descriptions guide the AI's ratings — if they don't match your expectations, edit them.
 
 **"Cover letters sound generic"** — Improve your evidence bank in `config.yaml`. The more specific and quantified your achievements, the better the letters.
 
@@ -251,7 +251,7 @@ Recommended:
 
 ## Contributing
 
-PRs welcome. If you've adapted this for a different field or platform (Indeed, Glassdoor, etc.), we'd love to see it.
+PRs welcome. If you've adapted this for a different job board (Indeed, Glassdoor, etc.), we'd love to see it.
 
 ---
 
